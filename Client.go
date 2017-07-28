@@ -42,7 +42,7 @@ func Plus(x int , y int) int{
 }
 
 func Read() int{
-	client, err := net.Dial("tcp", "127.0.0.1:1231")
+	client, err := net.Dial("tcp", "127.0.0.1:1232")
   if err != nil {
     log.Fatal("dialing:", err)
   }
@@ -73,9 +73,4 @@ func Write() string{
 	}
 
 	return "succes"
-}
-
-func main() {
-	
-
 }

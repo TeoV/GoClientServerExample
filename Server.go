@@ -34,8 +34,8 @@ func (srv *MyServer) Sum(args *ArgsSum, reply *int) error {
 	return nil
 }
 
- func (srv *MyServer) Write(args *ArgsWrite , reply *string) error {
-   file,err := os.Create(args.FilePath)
+ func (srv *MyServer) Write(args *ArgsWrite , reply *bool) bool {
+	 file,err := os.Create(args.FilePath)
    if err != nil {
      fmt.Println(err)
    }
@@ -43,7 +43,8 @@ func (srv *MyServer) Sum(args *ArgsSum, reply *int) error {
     w := bufio.NewWriter(file)
     fmt.Fprintln(w,args.Item)
     w.Flush()
-  return nil
+
+  return true
 }
 
  func (srv *MyServer) Read(args *ArgsRead, reply *int) error {

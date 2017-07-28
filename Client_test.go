@@ -7,17 +7,17 @@ import
   "log"
   "net"
 	"net/rpc/jsonrpc"
+  "time"
 )
 
 
 func TestStartServer(t *testing.T) {
+  time.Sleep(100*time.Millisecond)
   cmd := exec.Command("./Server","&")
   err := cmd.Start()
 	if err != nil {
 		t.Fatal(err)
 	}
-	log.Printf("Waiting for command to finish...")
-	log.Printf("Command finished with error: %v", err)
 }
 
 
@@ -36,7 +36,45 @@ func TestPlus(t *testing.T) {
 		log.Fatal("arith error:", err)
 	}
   if reply != 3 {
-    t.Fatal("eroare")
+    t.Fatal("Invalid sum")
   }
 
+}
+
+func TestRead(t *testing.T){
+  client, err := net.Dial("tcp", "127.0.0.1:1232")
+  if err != nil {
+    log.Fatal("dialing:", err)
+  }
+	var result int
+  Path := "/home/teo/Desktop/work/src/my_project/Client_Server/file.txt"
+  args :=&ArgsRead{Path}
+  c := jsonrpc.NewClient(client)
+	err = c.Call("MyServer.Read", args, &result)
+	if err != nil {
+		log.Fatal("arith error:", err)
+	}
+  if result !=123 {
+    t.Fatal("Invalid number")
+  }
+}
+
+func TestWrite(t *testing.T){
+  client, err := net.Dial("tcp", "127.0.0.1:1232")
+  if err != nil {
+    log.Fatal("dialing:", err)
+  }
+	var reply bool
+  Item := 7
+  Path := "/home/teo/Desktop/work/src/my_project/Client_Server/asder.txt"
+  args :=&ArgsWrite{Item,Path}
+  c := jsonrpc.NewClient(client)
+	err = c.Call("MyServer.Write", args, &reply)
+	if err != nil {
+		log.Fatal("arith error:", err)
+	}
+
+  if reply != true{
+  t.Fatal("Error at Writing")
+}
 }
