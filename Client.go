@@ -57,19 +57,23 @@ func Read() int{
 	return result
 }
 
-func Write() int{
+func Write() int {
 	client, err := net.Dial("tcp", "127.0.0.1:1232")
   if err != nil {
     log.Fatal("dialing:", err)
   }
-	var reply int
-  Item := 7
+	var result int
+  Item := 12
   Path := "./asder.txt"
   args :=&ArgsWrite{Item,Path}
   c := jsonrpc.NewClient(client)
-	err = c.Call("MyServer.Write", args, &reply)
+	err = c.Call("MyServer.Write", args, &result)
 	if err != nil {
 		log.Fatal("arith error:", err)
 	}
-	return reply
+	return result
+}
+
+func main() {
+
 }

@@ -64,17 +64,17 @@ func TestWrite(t *testing.T){
   if err != nil {
     log.Fatal("dialing:", err)
   }
-	var reply int
-  Item := 7
+	var result int
+  Item := 12
   Path := "./asder.txt"
   args :=&ArgsWrite{Item,Path}
   c := jsonrpc.NewClient(client)
-	err = c.Call("MyServer.Write", args, &reply)
+	err = c.Call("MyServer.Write", args, &result)
 	if err != nil {
 		log.Fatal("arith error:", err)
 	}
 
-  if reply != Item {
+  if result != Item {
   t.Fatal("Error at Writing")
 }
 }

@@ -42,8 +42,8 @@ func (srv *MyServer) Sum(args *ArgsSum, reply *int) error {
    defer file.Close()
     w := bufio.NewWriter(file)
     fmt.Fprintln(w,args.Item)
-		*reply = args.Item
     w.Flush()
+		*reply = args.Item
 
   return nil
 }
