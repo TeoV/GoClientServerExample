@@ -22,17 +22,15 @@ type ArgsWrite struct {
     FilePath string
 }
 
+func Plus(x int , y int) int{
+	client, err := net.Dial("tcp", "127.0.0.1:1232")
+  if err != nil {
+    log.Fatal("dialing:", err)
+  }
 
-func main() {
-
-	client, err := net.Dial("tcp", "127.0.0.1:1230")
-	if err != nil {
-		log.Fatal("dialing:", err)
-	}
-	/*
-  Test sum of 2 numbers
-  Item1,_ := strconv.Atoi(os.Args[1])
-  Item2,_ := strconv.Atoi(os.Args[2])
+  //Test sum of 2 numbers
+  Item1 := x
+  Item2 := y
 	args := &ArgsSum{Item1,Item2}
 	var reply int
 	c := jsonrpc.NewClient(client)
@@ -40,12 +38,15 @@ func main() {
 	if err != nil {
 		log.Fatal("arith error:", err)
 	}
-	fmt.Printf("Result: %d+%d=%d\n", args.Item1, args.Item2, reply)
-  */
+	return reply
+}
 
-  /*
-  //Test read from file
-  var result int
+func Read() int{
+	client, err := net.Dial("tcp", "127.0.0.1:1231")
+  if err != nil {
+    log.Fatal("dialing:", err)
+  }
+	var result int
   Path := "/home/teo/Desktop/work/src/my_project/Client_Server/file.txt"
   args :=&ArgsRead{Path}
   c := jsonrpc.NewClient(client)
@@ -53,11 +54,15 @@ func main() {
 	if err != nil {
 		log.Fatal("arith error:", err)
 	}
-  fmt.Printf("Number from file is %d\n",result)
-  */
+	return result
+}
 
-  //Test write to file
-  var reply string
+func Write() string{
+	client, err := net.Dial("tcp", "127.0.0.1:1232")
+  if err != nil {
+    log.Fatal("dialing:", err)
+  }
+	var reply string
   Item := 7
   Path := "/home/teo/Desktop/work/src/my_project/Client_Server/asd.txt"
   args :=&ArgsWrite{Item,Path}
@@ -67,5 +72,10 @@ func main() {
 		log.Fatal("arith error:", err)
 	}
 
+	return "succes"
+}
+
+func main() {
+	
 
 }
