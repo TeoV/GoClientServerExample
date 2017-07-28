@@ -47,7 +47,7 @@ func TestRead(t *testing.T){
     log.Fatal("dialing:", err)
   }
 	var result int
-  Path := "/home/teo/Desktop/work/src/my_project/Client_Server/file.txt"
+  Path := "./file.txt"
   args :=&ArgsRead{Path}
   c := jsonrpc.NewClient(client)
 	err = c.Call("MyServer.Read", args, &result)
@@ -64,9 +64,9 @@ func TestWrite(t *testing.T){
   if err != nil {
     log.Fatal("dialing:", err)
   }
-	var reply bool
+	var reply int
   Item := 7
-  Path := "/home/teo/Desktop/work/src/my_project/Client_Server/asder.txt"
+  Path := "./asder.txt"
   args :=&ArgsWrite{Item,Path}
   c := jsonrpc.NewClient(client)
 	err = c.Call("MyServer.Write", args, &reply)
@@ -74,7 +74,7 @@ func TestWrite(t *testing.T){
 		log.Fatal("arith error:", err)
 	}
 
-  if reply != true{
+  if reply != Item {
   t.Fatal("Error at Writing")
 }
 }

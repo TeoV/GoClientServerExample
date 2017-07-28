@@ -47,7 +47,7 @@ func Read() int{
     log.Fatal("dialing:", err)
   }
 	var result int
-  Path := "/home/teo/Desktop/work/src/my_project/Client_Server/file.txt"
+  Path := "./file.txt"
   args :=&ArgsRead{Path}
   c := jsonrpc.NewClient(client)
 	err = c.Call("MyServer.Read", args, &result)
@@ -57,20 +57,19 @@ func Read() int{
 	return result
 }
 
-func Write() string{
+func Write() int{
 	client, err := net.Dial("tcp", "127.0.0.1:1232")
   if err != nil {
     log.Fatal("dialing:", err)
   }
-	var reply string
+	var reply int
   Item := 7
-  Path := "/home/teo/Desktop/work/src/my_project/Client_Server/asd.txt"
+  Path := "./asder.txt"
   args :=&ArgsWrite{Item,Path}
   c := jsonrpc.NewClient(client)
 	err = c.Call("MyServer.Write", args, &reply)
 	if err != nil {
 		log.Fatal("arith error:", err)
 	}
-
-	return "succes"
+	return reply
 }
