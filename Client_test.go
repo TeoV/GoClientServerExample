@@ -54,7 +54,7 @@ func TestRead(t *testing.T){
 	if err != nil {
 		log.Fatal("arith error:", err)
 	}
-  if result !=123 {
+  if result !=12 {
     t.Fatal("Invalid number")
   }
 }
@@ -65,7 +65,7 @@ func TestWrite(t *testing.T){
     log.Fatal("dialing:", err)
   }
 	var result int
-  Item := 12
+	Item := 15
   Path := "./asder.txt"
   args :=&ArgsWrite{Item,Path}
   c := jsonrpc.NewClient(client)
@@ -74,7 +74,7 @@ func TestWrite(t *testing.T){
 		log.Fatal("arith error:", err)
 	}
 
-  if result != Item {
+  if result != 15 {
   t.Fatal("Error at Writing")
 }
 }

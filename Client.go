@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"net/rpc/jsonrpc"
+	"fmt"
 
 )
 
@@ -17,8 +18,9 @@ type ArgsRead struct {
     FilePath string
 }
 
+
 type ArgsWrite struct {
-    Item int
+		Item int
     FilePath string
 }
 
@@ -57,13 +59,13 @@ func Read() int{
 	return result
 }
 
-func Write() int {
+func Write() int{
 	client, err := net.Dial("tcp", "127.0.0.1:1232")
   if err != nil {
     log.Fatal("dialing:", err)
   }
 	var result int
-  Item := 12
+	Item := 15
   Path := "./asder.txt"
   args :=&ArgsWrite{Item,Path}
   c := jsonrpc.NewClient(client)
@@ -75,5 +77,5 @@ func Write() int {
 }
 
 func main() {
-
+	fmt.Println(Write())
 }

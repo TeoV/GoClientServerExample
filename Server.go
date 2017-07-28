@@ -12,27 +12,13 @@ import (
   "os"
 )
 
-/*
-type ArgsSum struct {
-    Item1, Item2 int
-}
-
-type ArgsWrite struct {
-    Item int
-    FilePath string
-}
-
-type ArgsRead struct {
-    FilePath string
-}
-*/
-
 type MyServer struct{}
 
 func (srv *MyServer) Sum(args *ArgsSum, reply *int) error {
 	*reply = args.Item1 + args.Item2
 	return nil
 }
+
 
  func (srv *MyServer) Write(args *ArgsWrite , reply *int) error {
 	 file,err := os.Create(args.FilePath)
@@ -57,7 +43,10 @@ func (srv *MyServer) Sum(args *ArgsSum, reply *int) error {
   scanner := bufio.NewScanner(file)
   for scanner.Scan() {
     lineStr := scanner.Text()
-    num, _ := strconv.Atoi(lineStr)
+    num,err := strconv.Atoi(lineStr)
+		if err !=nil{
+			fmt.Println(err)
+		}
     *reply = num
 }
 
@@ -75,7 +64,6 @@ func StartServer() string {
 		log.Fatal("listen error:", e)
 	}
 	test := "succes"
-
 	for {
 
 		log.Printf("Preparing to accept\n")
